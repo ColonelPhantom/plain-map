@@ -45,9 +45,10 @@ impl<Key: PartialEq, Value> PlainMap<Key, Value> {
     pub fn insert(&mut self, k: Key, v: Value) -> Option<Value> {
         match self.find(&k) {
             Some(i) => {
-                let ov = self.pairs.remove(i).1;
-                self.pairs.push((k,v));
-                Some(ov)
+                // let ov = self.pairs.swap_remove(i).1;
+                // self.pairs.push((k,v));
+                // Some(ov)
+                Some(std::mem::replace(&mut self.pairs[i].1, v))
             },
             None => {
                 self.pairs.push((k,v));
