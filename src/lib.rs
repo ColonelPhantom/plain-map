@@ -36,12 +36,6 @@ impl<Key: PartialEq, Value> PlainMap<Key, Value> {
         self.pairs.iter().position(|(x,_)| *x == *k)
     }
 
-    pub fn set(&mut self, k: Key, v: Value) {
-        match self.find(&k) {
-            Some(i) => self.pairs[i].1 = v,
-            None => self.pairs.push((k,v)),
-        }
-    }
     pub fn insert(&mut self, k: Key, v: Value) -> Option<Value> {
         match self.find(&k) {
             Some(i) => {
