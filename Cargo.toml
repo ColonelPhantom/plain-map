@@ -5,6 +5,7 @@ authors = ["Quinten Kock <quintenkock@gmail.com>"]
 edition = "2018"
 license = "MIT"
 description = "An implementation of a map that uses std::vec as backing storage, which is useful for having many tiny maps."
+repository = "https://github.com/ColonelPhantom/plain-map"
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
