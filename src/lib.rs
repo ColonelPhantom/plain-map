@@ -82,13 +82,13 @@ impl<Key: PartialEq, Value> PlainMap<Key, Value> {
 
     pub fn remove(&mut self, k: &Key) -> Option<Value> {
         match self.find(k) {
-            Some(i) => Some(self.pairs.remove(i).1),
+            Some(i) => Some(self.pairs.swap_remove(i).1),
             None => None,
         }
     }
     pub fn remove_entry(&mut self, k: &Key) -> Option<(Key, Value)> {
         match self.find(k) {
-            Some(i) => Some(self.pairs.remove(i)),
+            Some(i) => Some(self.pairs.swap_remove(i)),
             None => None,
         }
     }
