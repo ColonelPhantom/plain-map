@@ -6,21 +6,23 @@
 //     }
 // }
 
+use smallvec::SmallVec;
+
 #[derive(Clone, Debug)]
 pub struct PlainMap<Key, Value> {
-    pairs: Vec<(Key, Value)>,
+    pairs: SmallVec<[(Key, Value); 2]>,
 
 }
 impl<Key: PartialEq, Value> PlainMap<Key, Value> {
     pub fn new() -> Self {
         Self {
-            pairs: Vec::new(),
+            pairs: SmallVec::new(),
 
         }
     }
     pub fn with_capacity(capacity: usize) -> Self {
         Self {
-            pairs: Vec::with_capacity(capacity),
+            pairs: SmallVec::with_capacity(capacity),
         }
     }
 
@@ -134,8 +136,8 @@ impl<Key: PartialEq, Value> PlainMap<Key, Value> {
         self.pairs.iter_mut().map(|(_k,v)| v)
     }
 
-    pub fn drain(&mut self) -> std::vec::Drain<'_, (Key, Value)> {
-        self.pairs.drain(..)
+    pub fn drain(&mut self) -> smallvec::Drain<'_, (Key, Value)> {
+        self.pairs.drain()
     }
 }
 

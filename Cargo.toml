@@ -1,13 +1,19 @@
 [package]
 name = "plain-map"
-version = "0.1.0"
+version = "1.0.0"
 authors = ["Quinten Kock <quintenkock@gmail.com>"]
 edition = "2018"
 license = "MIT"
-description = "An implementation of a map that uses std::vec as backing storage, which is useful for having many tiny maps."
+description = "An implementation of a map that uses small_vec as backing storage, which is useful for having many tiny maps."
 repository = "https://github.com/ColonelPhantom/plain-map"
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+# smallvec = "0.6.10"
+
+[dependencies.smallvec]
+version = "0.6.10"
+# features = ["union"]
+# This requires nightly even though it seems like it shouldn't?
