@@ -1,11 +1,11 @@
 [package]
 name = "plain-map"
-version = "1.0.0"
+version = "2.0.0"
 authors = ["Quinten Kock <quintenkock@gmail.com>"]
 edition = "2018"
 license = "MIT"
-description = "An implementation of a map that uses small_vec as backing storage, which is useful for having many tiny maps."
-repository = "https://github.com/ColonelPhantom/plain-map"
+description = "An implementation of a map that uses small_vec as backing storage, which is useful for having many tiny maps. For storing non-Copy types please use v1.x which is also supported."
+repository = "https://github.com/ColonelPhantom/plain-map/tree/smallvec-union"
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -13,7 +13,8 @@ repository = "https://github.com/ColonelPhantom/plain-map"
 [dependencies]
 # smallvec = "0.6.10"
 
-[dependencies.smallvec]
+[dependencies.smallvec-stableunion]
 version = "0.6.10"
+# path = "../rust-smallvec"
 # features = ["union"]
 # This requires nightly even though it seems like it shouldn't?

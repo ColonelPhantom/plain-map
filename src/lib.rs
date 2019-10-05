@@ -6,14 +6,14 @@
 //     }
 // }
 
-use smallvec::SmallVec;
+use smallvec_stableunion::SmallVec;
 
 #[derive(Clone, Debug)]
-pub struct PlainMap<Key, Value> {
+pub struct PlainMap<Key: Copy, Value: Copy> {
     pairs: SmallVec<[(Key, Value); 2]>,
 
 }
-impl<Key: PartialEq, Value> PlainMap<Key, Value> {
+impl<Key: PartialEq + Copy, Value: Copy> PlainMap<Key, Value> {
     pub fn new() -> Self {
         Self {
             pairs: SmallVec::new(),
@@ -136,16 +136,16 @@ impl<Key: PartialEq, Value> PlainMap<Key, Value> {
         self.pairs.iter_mut().map(|(_k,v)| v)
     }
 
-    pub fn drain(&mut self) -> smallvec::Drain<'_, (Key, Value)> {
+    pub fn drain(&mut self) -> smallvec_stableunion::Drain<'_, (Key, Value)> {
         self.pairs.drain()
     }
 }
 
-pub struct PlainMapEntry<'a, Key, Value> {
+pub struct PlainMapEntry<'a, Key: Copy, Value: Copy> {
     parent: &'a mut PlainMap<Key, Value>,
     k: Key,
 }
-impl<'a, Key: PartialEq, Value> PlainMapEntry<'a, Key, Value> {
+impl<'a, Key: PartialEq + Copy, Value: Copy> PlainMapEntry<'a, Key, Value> {
     pub fn or_insert(self, default: Value) -> &'a mut Value {
         match self.parent.find(&self.k) {
             Some(i) => &mut self.parent.pairs[i].1,
@@ -176,7 +176,7 @@ impl<'a, Key: PartialEq, Value> PlainMapEntry<'a, Key, Value> {
         &self.k
     }
 }
-impl<'a, Key: PartialEq, Value: Default> PlainMapEntry<'a, Key, Value> {
+impl<'a, Key: PartialEq + Copy, Value: Default + Copy> PlainMapEntry<'a, Key, Value> {
     pub fn or_default(self) -> &'a mut Value {
         self.or_insert_with(Value::default)
     }
